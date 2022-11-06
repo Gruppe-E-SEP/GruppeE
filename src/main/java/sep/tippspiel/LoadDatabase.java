@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import sep.tippspiel.systemadministrator.Systemadministrator;
 import sep.tippspiel.user.UserRepository;
 import sep.tippspiel.user.Users;
 
@@ -22,12 +23,15 @@ public class LoadDatabase {
         Users u4 = new Users("Kevin", "Docker" , "kev.dc@gmail.com", "docker");
         Users u5 = new Users("Serghei", "Back" , "ser.sp@gmail.com", "springboot");
 
+        Systemadministrator sa1 = new Systemadministrator("System", "Administrator", "sysadmin@web.de","sysadmin");
+
         return args -> {
             log.info("Preloading " + userRepository.save(u1));
             log.info("Preloading " + userRepository.save(u2));
             log.info("Preloading " + userRepository.save(u3));
             log.info("Preloading " + userRepository.save(u4));
             log.info("Preloading " + userRepository.save(u5));
+
 
         };
     }
