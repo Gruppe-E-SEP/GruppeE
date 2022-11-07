@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import sep.tippspiel.systemadministrator.Systemadministrator;
+import sep.tippspiel.systemadministrator.SystemadministratorRepository;
 import sep.tippspiel.user.UserRepository;
 import sep.tippspiel.user.Users;
 
@@ -31,6 +32,18 @@ public class LoadDatabase {
             log.info("Preloading " + userRepository.save(u3));
             log.info("Preloading " + userRepository.save(u4));
             log.info("Preloading " + userRepository.save(u5));
+
+
+        };
+    }
+    @Bean
+    CommandLineRunner initSA(SystemadministratorRepository systemadministratorRepository) {
+
+        Systemadministrator sa1 = new Systemadministrator("System", "Administrator", "sysadmin@web.de","sysadmin");
+
+        return args -> {
+            log.info("Preloading " + systemadministratorRepository.save(sa1));
+
 
 
         };
