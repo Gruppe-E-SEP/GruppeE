@@ -16,6 +16,7 @@ public class SystemDatumController {
     SystemDatumService systemDatumService;
 
 
+    @PostMapping(path = "/setdate", produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> setDate(@PathVariable Date date) {
         if(systemDatumService.setDate(date)) {
             return new ResponseEntity<>("Datum wurde aktualisiert", HttpStatus.OK);
