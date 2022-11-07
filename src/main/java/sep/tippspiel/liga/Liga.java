@@ -2,11 +2,19 @@ package sep.tippspiel.liga;
 
 import sep.tippspiel.spielplan.Spielplan;
 
-import java.awt.*;
+import javax.persistence.*;
 
 public class Liga {
 
+
+    private Long id;
+
+
     private String name;
+
+
+    private String ligaImage;
+
     private Spielplan spielplan;
-    private Image ligaImage;
+
 }

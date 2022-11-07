@@ -1,4 +1,6 @@
 package sep.tippspiel.spiel;
 
-public interface SpielRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SpielRepository extends JpaRepository<Spiel, Long> {
 }

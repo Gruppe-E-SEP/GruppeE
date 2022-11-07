@@ -1,4 +1,6 @@
 package sep.tippspiel.spieltag;
 
-public interface SpieltagRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SpieltagRepository extends JpaRepository<Spieltag, Long> {
 }

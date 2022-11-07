@@ -1,9 +1,8 @@
 package sep.tippspiel.mannschaft;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import sep.tippspiel.spiel.Spiel;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -17,6 +16,10 @@ public class Mannschaft implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "spiel_id")
+    private Spiel spiel;
+
     public Mannschaft() {};
 
     public Mannschaft(String name)  {
@@ -25,4 +28,12 @@ public class Mannschaft implements Serializable {
 
     @Override
     public String toString() {return "Name: " + name;}
+
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
 }
