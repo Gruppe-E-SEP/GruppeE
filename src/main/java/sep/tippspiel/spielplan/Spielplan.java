@@ -20,7 +20,6 @@ public class Spielplan {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "spielplan")
     private List<Spieltag> spieltagList = new ArrayList<>();
 
-
     public Spielplan csvEinlesen(File csv) {
         Spielplan spielplan = new Spielplan();
         return spielplan;

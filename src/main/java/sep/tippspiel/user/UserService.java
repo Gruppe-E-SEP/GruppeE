@@ -5,6 +5,8 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -41,6 +43,18 @@ public class UserService {
     public List<Users> findByName(String vorname) {
         System.out.println(this.userRepository.findByName(vorname));
         return this.userRepository.findByName(vorname);
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        System.out.println(result);
+        return result;
     }
 
 
