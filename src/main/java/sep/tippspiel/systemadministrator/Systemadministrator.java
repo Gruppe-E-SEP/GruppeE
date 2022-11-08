@@ -1,10 +1,13 @@
 package sep.tippspiel.systemadministrator;
 
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 @Entity
 public class Systemadministrator implements Serializable {
@@ -53,16 +56,23 @@ public class Systemadministrator implements Serializable {
     public void setPasswort(String passwort) {
         this.passwort = passwort;
     }
-
+    @NotNull
+    @NotEmpty(message = "Vorname darf nicht leer sein")
     @Column(name = "vorname")
     private String vorname;
 
+    @NotNull
+    @NotEmpty(message = "Nachname darf nicht leer sein")
     @Column(name = "nachname")
     private String nachname;
 
+    @NotNull
+    @NotEmpty(message = "Email darf nicht leer sein")
     @Column(name = "email")
     private String email;
 
+    @NotNull
+    @NotEmpty(message = "Passwort darf nicht leer sein")
     @Column(name = "passwort")
     private String passwort;
 

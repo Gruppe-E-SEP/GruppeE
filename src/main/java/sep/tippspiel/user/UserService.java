@@ -36,12 +36,10 @@ public class UserService {
     public List<Users> all() {return userRepository.findAll();}
 
     public String findByEmail(String email) {
-        System.out.println(this.userRepository.findByEmail(email)==null);
         return this.userRepository.findByEmail(email);
     }
 
     public List<Users> findByName(String vorname) {
-        System.out.println(this.userRepository.findByName(vorname));
         return this.userRepository.findByName(vorname);
     }
 
@@ -53,7 +51,6 @@ public class UserService {
         } catch (AddressException ex) {
             result = false;
         }
-        System.out.println(result);
         return result;
     }
 

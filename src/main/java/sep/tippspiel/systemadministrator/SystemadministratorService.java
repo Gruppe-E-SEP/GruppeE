@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sep.tippspiel.user.Users;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 @Service
@@ -39,6 +41,17 @@ public class SystemadministratorService {
     public List<Systemadministrator> findByName(String vorname) {
         System.out.println(this.systemadministratorRepository.findByName(vorname));
         return this.systemadministratorRepository.findByName(vorname);
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
 }

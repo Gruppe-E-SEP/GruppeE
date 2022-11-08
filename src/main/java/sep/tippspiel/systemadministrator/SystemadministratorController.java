@@ -9,6 +9,8 @@ import sep.tippspiel.user.Users;
 
 import java.util.List;
 
+import static sep.tippspiel.user.UserService.isValidEmailAddress;
+
 @RestController
 @RequestMapping(value = "/administrator")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,15 +22,20 @@ public class SystemadministratorController {
     @PostMapping(path = "/createSA",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Systemadministrator sa) {
 
-        if(this.systemadministratorService.findByEmail(sa.getEmail())!=null) {
-            return new ResponseEntity<>("User mit diesen E-Mail-Adresse ist bereits registriert", HttpStatus.OK);
-        } else {
-            if(this.systemadministratorService.createSystemadministrator(sa.getVorname(), sa.getNachname(), sa.getEmail(), sa.getPasswort())) {
-                return new ResponseEntity<>("User wurde erstellt:", HttpStatus.OK);
+        if(this.systemadministratorService.isValidEmailAddress(sa.getEmail())) {
+            if(this.systemadministratorService.findByEmail(sa.getEmail())!=null) {
+                return new ResponseEntity<>("User mit diesen E-Mail-Adresse ist bereits registriert", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("User konnte nicht erstellt werden", HttpStatus.BAD_REQUEST);
+                if(this.systemadministratorService.createSystemadministrator(sa.getVorname(), sa.getNachname(), sa.getEmail(), sa.getPasswort())) {
+                    return new ResponseEntity<>("User wurde erstellt:", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("User konnte nicht erstellt werden", HttpStatus.BAD_REQUEST);
+                }
             }
+        } else {
+            return new ResponseEntity<>("Email ist ungültig", HttpStatus.BAD_REQUEST);
         }
+
     }
 
     @GetMapping(path = "/allSA", produces = "application/json")
