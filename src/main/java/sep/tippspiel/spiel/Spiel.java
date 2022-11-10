@@ -4,8 +4,12 @@ import sep.tippspiel.mannschaft.Mannschaft;
 import sep.tippspiel.spieltag.Spieltag;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 public class Spiel {
@@ -19,7 +23,7 @@ public class Spiel {
     private String score;
 
     @Column(name = "date")
-    private String date;
+    private Date date;
 
     public String getScore() {
         return score;
@@ -29,19 +33,20 @@ public class Spiel {
         this.score = score;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-/*    @ManyToOne
-    @JoinColumn(name = "spieltag_id")
-    private Spieltag spieltag;*/
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spiel")
-    private List<Spieltag> spieltagList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "spieltag_id")
+    private Spieltag spieltag;
+
+/*    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spiel")
+    private List<Spieltag> spieltagList = new ArrayList<>();*/
 
 
     @ManyToOne
@@ -55,10 +60,13 @@ public class Spiel {
 
     public Spiel(){};
 
-    public Spiel(Mannschaft mannschaft, Mannschaft mannschaft2, String date, String score) {
+    public Spiel(Mannschaft mannschaft, Mannschaft mannschaft2, String date, String score) throws ParseException {
         this.mannschaft = mannschaft;
         this.mannschaft2 = mannschaft2;
-        this.date = date;
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH);
+        String dateInString = date;
+        Date dateD = formatter.parse(dateInString);
+        this.date = dateD;
         this.score = score;
     }
 

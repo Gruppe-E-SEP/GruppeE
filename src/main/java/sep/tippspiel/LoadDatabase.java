@@ -15,6 +15,8 @@ import sep.tippspiel.systemadministrator.SystemadministratorRepository;
 import sep.tippspiel.user.UserRepository;
 import sep.tippspiel.user.Users;
 
+import java.text.ParseException;
+
 
 @Configuration
 public class LoadDatabase {
@@ -66,7 +68,7 @@ public class LoadDatabase {
     }*/
 
     @Bean
-    CommandLineRunner initSp(SpielRepository SpielRepository,MannschaftRepository mannschaftRepository) {
+    CommandLineRunner initSp(SpielRepository SpielRepository,MannschaftRepository mannschaftRepository) throws ParseException {
         Mannschaft ma1 = new Mannschaft("FC Bayern");
         Mannschaft ma2 = new Mannschaft("FC Schalke 04");
         Spiel s1 = new Spiel(ma1,ma2,"Fri Aug 9 2013", "3-1");

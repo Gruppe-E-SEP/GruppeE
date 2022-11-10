@@ -25,15 +25,18 @@ public class Spielplan {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+/*    @ManyToOne
     @JoinColumn(name = "spieltag")
-    private Spieltag spieltag;
+    private Spieltag spieltag;*/
 
     public Spielplan() {};
 
+    @OneToOne(mappedBy = "spielplan")
+    private Liga liga;
 
-/*    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spielplan")
-    private List<Spieltag> spieltagList = new ArrayList<>();*/
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spielplan")
+    private List<Spieltag> spieltagList = new ArrayList<>();
 
 
 }

@@ -5,14 +5,24 @@ import sep.tippspiel.spielplan.Spielplan;
 
 import javax.persistence.*;
 
+@Entity
 public class Liga {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "ligaImage")
     private String ligaImage;
 
+    @OneToOne
+    @JoinColumn(name = "spielplan_id")
     private Spielplan spielplan;
+
+
 
 }

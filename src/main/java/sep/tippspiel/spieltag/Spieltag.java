@@ -22,20 +22,20 @@ public class Spieltag {
     @Column(name = "tag")
     private int tag;
 
-    @ManyToOne
+/*    @ManyToOne
     @JoinColumn(name = "spiel_id")
-    private Spiel spiel;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spieltag")
-    private List<Spielplan> spielplanList = new ArrayList<>();
-
+    private Spiel spiel;*/
 
 /*    @OneToMany(fetch = FetchType.EAGER, mappedBy = "spieltag")
-    private List<Spiel> spielList = new ArrayList<>();*/
+    private List<Spielplan> spielplanList = new ArrayList<>();*/
 
-/*    @ManyToOne
+
+    @OneToMany(mappedBy = "spieltag")
+    private List<Spiel> spielList = new ArrayList<>();
+
+    @ManyToOne
     @JoinColumn(name = "spielplan_id")
-    private Spielplan spielplan;*/
+    private Spielplan spielplan;
 
     /*public Spielplan getSpielplan() {
         return spielplan;
@@ -46,6 +46,10 @@ public class Spieltag {
     }*/
 
     public Spieltag() {};
+
+    public Spieltag(int tag) {
+        this.tag = tag;
+    }
 
 
 
