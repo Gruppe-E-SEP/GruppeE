@@ -3,11 +3,14 @@ package sep.tippspiel.systemadministrator;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sep.tippspiel.liga.Liga;
+import sep.tippspiel.liga.LigaRepository;
 import sep.tippspiel.mannschaft.Mannschaft;
 import sep.tippspiel.mannschaft.MannschaftRepository;
 import sep.tippspiel.spiel.Spiel;
 import sep.tippspiel.spiel.SpielRepository;
 import sep.tippspiel.spielplan.Spielplan;
+import sep.tippspiel.spielplan.SpielplanRepository;
 import sep.tippspiel.spieltag.Spieltag;
 import sep.tippspiel.spieltag.SpieltagRepository;
 import sep.tippspiel.user.Users;
@@ -29,6 +32,11 @@ public class SystemadministratorService {
     private MannschaftRepository mannschaftRepository;
     private SpielRepository spielRepository;
     private SpieltagRepository spieltagRepository;
+
+    private SpielplanRepository spielplanRepository;
+
+    private LigaRepository ligaRepository;
+
 
     public boolean createSystemadministrator(String vorname, String nachname, String email,  String passwort){
 
@@ -76,12 +84,20 @@ public class SystemadministratorService {
         try {
             FileReader fileReader = new FileReader(csv);
             BufferedReader reader = new BufferedReader(fileReader);
+
+            Spielplan spielplan = new Spielplan();
+            this.spielplanRepository.save(spielplan);
+
+/*            Liga liga = new Liga("1. Bundesliga", this.spielplanRepository.getReferenceById(), "");
+
+            this.ligaRepository.save(liga);*/
             while ((line = reader.readLine()) !=null) {
 
                 String[] token = line.split(delimiter);
                 //ToDo DB Entity Zuordnung
                 //ToDo Mannschaft JPA searchByName;
                 //ToDo
+
                 if(!this.mannschaftRepository.isMannschaftPresent(token[2])){
                     this.mannschaftRepository.save(new Mannschaft(token[2]));
                 }
@@ -94,12 +110,16 @@ public class SystemadministratorService {
 
                 Long id2 = this.mannschaftRepository.findByName(token[4]);
 
-                this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(id1), this.mannschaftRepository.getReferenceById(id2),token[1], token[3]));
-
-
                 if(!this.spieltagRepository.isSpieltagPresent(Integer.parseInt(token[0]))) {
                     this.spieltagRepository.save(new Spieltag(Integer.parseInt(token[0])));
                 }
+
+                Long sId = this.spieltagRepository.getByTag(Integer.parseInt(token[0]));
+
+                this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(id1), this.mannschaftRepository.getReferenceById(id2),token[1], token[3], this.spieltagRepository.getReferenceById(sId) ));
+
+
+
 
                 System.out.println(token[0] + " ! " + token[1] + " !" + token[2] + " ! " + token[3] + " ! " + token[4]);
 

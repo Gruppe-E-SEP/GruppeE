@@ -23,6 +23,14 @@ public class Liga {
     @JoinColumn(name = "spielplan_id")
     private Spielplan spielplan;
 
+    public Liga(){};
+
+    public Liga(String name, Spielplan spielplan, String ligaImage) {
+        this.name = name;
+        this.spielplan = spielplan;
+        this.ligaImage = ligaImage;
+    }
+
 
 
 }

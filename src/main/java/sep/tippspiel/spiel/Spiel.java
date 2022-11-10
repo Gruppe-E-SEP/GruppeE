@@ -60,7 +60,7 @@ public class Spiel {
 
     public Spiel(){};
 
-    public Spiel(Mannschaft mannschaft, Mannschaft mannschaft2, String date, String score) throws ParseException {
+    public Spiel(Mannschaft mannschaft, Mannschaft mannschaft2, String date, String score, Spieltag spieltag) throws ParseException {
         this.mannschaft = mannschaft;
         this.mannschaft2 = mannschaft2;
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd yyyy", Locale.ENGLISH);
@@ -68,6 +68,8 @@ public class Spiel {
         Date dateD = formatter.parse(dateInString);
         this.date = dateD;
         this.score = score;
+        this.spieltag = spieltag;
+
     }
 
 /*  @OneToMany(fetch = FetchType.EAGER, mappedBy = "spiel")
