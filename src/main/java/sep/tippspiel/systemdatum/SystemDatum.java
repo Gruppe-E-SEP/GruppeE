@@ -1,5 +1,7 @@
 package sep.tippspiel.systemdatum;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

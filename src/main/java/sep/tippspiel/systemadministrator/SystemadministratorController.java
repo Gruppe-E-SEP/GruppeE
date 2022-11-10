@@ -2,11 +2,15 @@ package sep.tippspiel.systemadministrator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sep.tippspiel.systemdatum.SystemDatumRepository;
+import sep.tippspiel.systemdatum.SystemDatumService;
 import sep.tippspiel.user.Users;
 
+import java.util.Date;
 import java.util.List;
 
 import static sep.tippspiel.user.UserService.isValidEmailAddress;
@@ -18,6 +22,8 @@ public class SystemadministratorController {
 
     @Autowired
     SystemadministratorService systemadministratorService;
+    @Autowired
+    SystemDatumService systemDatumService;
 
     @PostMapping(path = "/createSA",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Systemadministrator sa) {
@@ -49,8 +55,6 @@ public class SystemadministratorController {
         List<Systemadministrator> saByName = this.systemadministratorService.findByName(vorname);
         return new ResponseEntity<>(saByName, HttpStatus.OK);
     }
-
-
 
 
 }

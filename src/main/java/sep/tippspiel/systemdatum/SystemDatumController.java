@@ -1,6 +1,7 @@
 package sep.tippspiel.systemdatum;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class SystemDatumController {
 
 
     @PostMapping(path = "/setdate", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> setDate(@PathVariable Date date) {
+    public ResponseEntity<String> setDate(@RequestParam("date")@DateTimeFormat(pattern = "dd.MM.yyyy") Date date) {
         if(systemDatumService.setDate(date)) {
             return new ResponseEntity<>("Datum wurde aktualisiert", HttpStatus.OK);
         } else {

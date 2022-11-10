@@ -6,6 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import sep.tippspiel.mannschaft.Mannschaft;
+import sep.tippspiel.mannschaft.MannschaftRepository;
+import sep.tippspiel.spiel.Spiel;
+import sep.tippspiel.spiel.SpielRepository;
 import sep.tippspiel.systemadministrator.Systemadministrator;
 import sep.tippspiel.systemadministrator.SystemadministratorRepository;
 import sep.tippspiel.user.UserRepository;
@@ -33,7 +37,6 @@ public class LoadDatabase {
             log.info("Preloading " + userRepository.save(u4));
             log.info("Preloading " + userRepository.save(u5));
 
-
         };
     }
     @Bean
@@ -44,8 +47,37 @@ public class LoadDatabase {
         return args -> {
             log.info("Preloading " + systemadministratorRepository.save(sa1));
 
+        };
+    }
+
+/*    @Bean
+    CommandLineRunner initMa(MannschaftRepository mannschaftRepository) {
+
+        Mannschaft ma1 = new Mannschaft("FC Bayern");
+        Mannschaft ma2 = new Mannschaft("FC Schalke 04");
+
+        return args -> {
+            log.info("Preloading " + mannschaftRepository.save(ma1));
+            log.info("Preloading " + mannschaftRepository.save(ma2));
+
 
 
         };
+    }*/
+
+    @Bean
+    CommandLineRunner initSp(SpielRepository SpielRepository,MannschaftRepository mannschaftRepository) {
+        Mannschaft ma1 = new Mannschaft("FC Bayern");
+        Mannschaft ma2 = new Mannschaft("FC Schalke 04");
+        Spiel s1 = new Spiel(ma1,ma2,"Fri Aug 9 2013", "3-1");
+
+
+        return args -> {
+            log.info("Preloading " + mannschaftRepository.save(ma1));
+            log.info("Preloading " + mannschaftRepository.save(ma2));
+            log.info("Preloading " + SpielRepository.save(s1));
+
+        };
     }
+    
 }
