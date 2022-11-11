@@ -10,6 +10,8 @@ import sep.tippspiel.mannschaft.Mannschaft;
 import sep.tippspiel.mannschaft.MannschaftRepository;
 import sep.tippspiel.spiel.Spiel;
 import sep.tippspiel.spiel.SpielRepository;
+import sep.tippspiel.spielplan.Spielplan;
+import sep.tippspiel.spielplan.SpielplanRepository;
 import sep.tippspiel.spieltag.Spieltag;
 import sep.tippspiel.spieltag.SpieltagRepository;
 import sep.tippspiel.systemadministrator.Systemadministrator;
@@ -70,16 +72,18 @@ public class LoadDatabase {
     }*/
 
     @Bean
-    CommandLineRunner initSp(SpielRepository SpielRepository,MannschaftRepository mannschaftRepository, SpieltagRepository spieltagRepository) throws ParseException {
+    CommandLineRunner initSp(SpielRepository SpielRepository, MannschaftRepository mannschaftRepository, SpieltagRepository spieltagRepository, SpielplanRepository spielplanRepository) throws ParseException {
         Mannschaft ma1 = new Mannschaft("FC Bayern");
         Mannschaft ma2 = new Mannschaft("FC Schalke 04");
-        Spieltag s = new Spieltag(1);
+        Spielplan spielplan = new Spielplan();
+        Spieltag s = new Spieltag(1,spielplan);
         Spiel s1 = new Spiel(ma1,ma2,"Fri Aug 9 2013", "3-1",s);
 
 
         return args -> {
             log.info("Preloading " + mannschaftRepository.save(ma1));
             log.info("Preloading " + mannschaftRepository.save(ma2));
+            log.info("Preloading "+  spielplanRepository.save(spielplan));
             log.info("Preloading " + spieltagRepository.save(s));
             log.info("Preloading " + SpielRepository.save(s1));
 

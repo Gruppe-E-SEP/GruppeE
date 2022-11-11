@@ -3,17 +3,14 @@ package sep.tippspiel.systemadministrator;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 @Entity
 public class Systemadministrator implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

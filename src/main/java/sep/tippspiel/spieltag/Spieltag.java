@@ -15,7 +15,7 @@ public class Spieltag {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -47,8 +47,9 @@ public class Spieltag {
 
     public Spieltag() {};
 
-    public Spieltag(int tag) {
+    public Spieltag(int tag, Spielplan spielplan) {
         this.tag = tag;
+        this.spielplan = spielplan;
     }
 
 

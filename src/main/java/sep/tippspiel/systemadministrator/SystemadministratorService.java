@@ -88,15 +88,13 @@ public class SystemadministratorService {
             Spielplan spielplan = new Spielplan();
             this.spielplanRepository.save(spielplan);
 
-/*            Liga liga = new Liga("1. Bundesliga", this.spielplanRepository.getReferenceById(), "");
+            Liga liga = new Liga("1. Bundesliga", this.spielplanRepository.getReferenceById(this.spielplanRepository.getMaxId()), "");
 
-            this.ligaRepository.save(liga);*/
+            this.ligaRepository.save(liga);
+
             while ((line = reader.readLine()) !=null) {
 
                 String[] token = line.split(delimiter);
-                //ToDo DB Entity Zuordnung
-                //ToDo Mannschaft JPA searchByName;
-                //ToDo
 
                 if(!this.mannschaftRepository.isMannschaftPresent(token[2])){
                     this.mannschaftRepository.save(new Mannschaft(token[2]));
@@ -111,12 +109,12 @@ public class SystemadministratorService {
                 Long id2 = this.mannschaftRepository.findByName(token[4]);
 
                 if(!this.spieltagRepository.isSpieltagPresent(Integer.parseInt(token[0]))) {
-                    this.spieltagRepository.save(new Spieltag(Integer.parseInt(token[0])));
+                    this.spieltagRepository.save(new Spieltag(Integer.parseInt(token[0]),this.spielplanRepository.getReferenceById((this.spielplanRepository.getMaxId()))));
                 }
 
                 Long sId = this.spieltagRepository.getByTag(Integer.parseInt(token[0]));
 
-                this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(id1), this.mannschaftRepository.getReferenceById(id2),token[1], token[3], this.spieltagRepository.getReferenceById(sId) ));
+                this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(id1), this.mannschaftRepository.getReferenceById(id2),token[1], token[3], this.spieltagRepository.getReferenceById(sId)));
 
 
 
