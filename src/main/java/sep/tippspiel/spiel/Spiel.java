@@ -15,7 +15,7 @@ import java.util.Locale;
 public class Spiel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

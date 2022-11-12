@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sep.tippspiel.spiel.Spiel;
 
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
 
     @PostMapping(path = "/create",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Users user) {
@@ -50,5 +52,11 @@ public class UserController {
         return new ResponseEntity<>(usersByName, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/allspiele", produces = "application/json")
+    public ResponseEntity<List<Spiel>> getAllSpiele() {
+        List<Spiel> allspiele = this.userService.allspiele();
+        return new ResponseEntity<>(allspiele, HttpStatus.OK);
 
+
+}
 }

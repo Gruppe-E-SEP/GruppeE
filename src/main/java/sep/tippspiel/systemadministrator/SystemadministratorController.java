@@ -10,6 +10,7 @@ import sep.tippspiel.systemdatum.SystemDatumRepository;
 import sep.tippspiel.systemdatum.SystemDatumService;
 import sep.tippspiel.user.Users;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class SystemadministratorController {
     @GetMapping(path = "/allSA", produces = "application/json")
     public ResponseEntity<List<Systemadministrator>> getAllSA() {
         List<Systemadministrator> allSA = this.systemadministratorService.all();
+/*        this.systemadministratorService.csvEinlesen();*/
         return new ResponseEntity<>(allSA, HttpStatus.OK);
     }
 
@@ -55,6 +57,20 @@ public class SystemadministratorController {
         List<Systemadministrator> saByName = this.systemadministratorService.findByName(vorname);
         return new ResponseEntity<>(saByName, HttpStatus.OK);
     }
+
+    @GetMapping(path = "/loadcsv")
+    public void loadCSV() {
+        this.systemadministratorService.csvEinlesen();
+    }
+
+/*    @PostMapping(path = "/loadcsvf", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<String> loadCSVF(@RequestParam("csv") File csv) {
+        if(systemadministratorService.csvEinlesen(csv)) {
+            return new ResponseEntity<>("CSV wurde importiert", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("CSV konnte nicht importiert werden", HttpStatus.BAD_REQUEST);
+        }
+    }*/
 
 
 }

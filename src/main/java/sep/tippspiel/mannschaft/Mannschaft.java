@@ -11,7 +11,7 @@ import java.util.List;
 public class Mannschaft implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

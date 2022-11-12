@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface SpieltagRepository extends JpaRepository<Spieltag, Long> {
 
-    @Query("SELECT s.tag FROM Spieltag s where s.tag= :tag")
+    @Query("SELECT count(s) > 0 FROM Spieltag s where s.tag= :tag")
     boolean isSpieltagPresent (@Param("tag") int tag);
 
     @Query("SELECT s.id FROM Spieltag s where s.tag= :tag")

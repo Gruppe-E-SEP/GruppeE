@@ -71,7 +71,7 @@ public class LoadDatabase {
         };
     }*/
 
-    @Bean
+/*    @Bean
     CommandLineRunner initSp(SpielRepository SpielRepository, MannschaftRepository mannschaftRepository, SpieltagRepository spieltagRepository, SpielplanRepository spielplanRepository) throws ParseException {
         Mannschaft ma1 = new Mannschaft("FC Bayern");
         Mannschaft ma2 = new Mannschaft("FC Schalke 04");
@@ -89,6 +89,6 @@ public class LoadDatabase {
 
 
         };
-    }
+    }*/
     
 }

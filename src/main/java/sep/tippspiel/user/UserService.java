@@ -4,6 +4,8 @@ import com.google.common.hash.Hashing;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sep.tippspiel.spiel.Spiel;
+import sep.tippspiel.spiel.SpielRepository;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -15,6 +17,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private SpielRepository spielRepository;
 
 
     public boolean createUser(String vorname, String nachname, String email,  String passwort){
@@ -53,6 +57,8 @@ public class UserService {
         }
         return result;
     }
+
+    public List<Spiel> allspiele() {return spielRepository.findAll();}
 
 
 }
