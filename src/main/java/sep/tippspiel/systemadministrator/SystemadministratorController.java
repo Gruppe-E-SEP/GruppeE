@@ -48,7 +48,6 @@ public class SystemadministratorController {
     @GetMapping(path = "/allSA", produces = "application/json")
     public ResponseEntity<List<Systemadministrator>> getAllSA() {
         List<Systemadministrator> allSA = this.systemadministratorService.all();
-/*        this.systemadministratorService.csvEinlesen();*/
         return new ResponseEntity<>(allSA, HttpStatus.OK);
     }
 
@@ -71,6 +70,16 @@ public class SystemadministratorController {
             return new ResponseEntity<>("CSV konnte nicht importiert werden", HttpStatus.BAD_REQUEST);
         }
     }*/
+
+    @PostMapping(path = "/setSystemDatum", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<String> setSystemDatum(@RequestParam Date date) {
+
+        if(this.systemadministratorService.setSystemDatum(date)){
+            return new ResponseEntity<String>("Datum wurde aktualisiert", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<String>("Datum konnte nicht aktualisiert werden", HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }

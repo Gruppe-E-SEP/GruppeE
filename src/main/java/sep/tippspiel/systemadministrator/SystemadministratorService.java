@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import sep.tippspiel.liga.Liga;
 import sep.tippspiel.liga.LigaRepository;
 import sep.tippspiel.mannschaft.Mannschaft;
@@ -15,6 +16,8 @@ import sep.tippspiel.spielplan.Spielplan;
 import sep.tippspiel.spielplan.SpielplanRepository;
 import sep.tippspiel.spieltag.Spieltag;
 import sep.tippspiel.spieltag.SpieltagRepository;
+import sep.tippspiel.systemdatum.SystemDatum;
+import sep.tippspiel.systemdatum.SystemDatumRepository;
 import sep.tippspiel.user.Users;
 
 
@@ -27,6 +30,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,6 +50,8 @@ public class SystemadministratorService {
     private SpielplanRepository spielplanRepository;
     @Autowired
     private LigaRepository ligaRepository;
+    @Autowired
+    private SystemDatumRepository systemDatumRepository;
 
 
     public boolean createSystemadministrator(String vorname, String nachname, String email,  String passwort){
@@ -135,6 +141,18 @@ public class SystemadministratorService {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public boolean setSystemDatum(Date date) {
+        try {
+            SystemDatum systemDatum = new SystemDatum(date);
+            this.systemDatumRepository.deleteAll();
+            this.systemDatumRepository.save(systemDatum);
+            return true;
+        } catch (Exception e) {
+            e.getMessage();
+            return false;
+        }
     }
 
 }
