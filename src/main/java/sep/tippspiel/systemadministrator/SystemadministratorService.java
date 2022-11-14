@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import sep.tippspiel.liga.Liga;
 import sep.tippspiel.liga.LigaRepository;
 import sep.tippspiel.mannschaft.Mannschaft;
@@ -93,12 +94,12 @@ public class SystemadministratorService {
         return result;
     }
 
-    public void csvEinlesen() {
+    public void csvEinlesen(File csv) {
         String line = "";
         final String delimiter = ",";
-        /*FileReader fileReader = new FileReader(csv);*/
 
-        try {FileReader fileReader = new FileReader("C:\\Users\\Espmaster\\Desktop\\deutschland-master\\deutschland-master\\2020s\\2020-21\\de.1.csv");
+        try {FileReader fileReader = new FileReader(csv);
+
 
             BufferedReader reader = new BufferedReader(fileReader);
 
@@ -153,6 +154,15 @@ public class SystemadministratorService {
             e.getMessage();
             return false;
         }
+    }
+
+    public boolean istCSVFormat(MultipartFile file) {
+        String TYPE = "text/csv";
+
+        if (!TYPE.equals(file.getContentType())) {
+            return false;
+        }
+        return true;
     }
 
 }
