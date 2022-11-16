@@ -61,11 +61,6 @@ public class SystemadministratorController {
         return new ResponseEntity<>(saByName, HttpStatus.OK);
     }
 
-/*    @GetMapping(path = "/loadcsv")
-    public void loadCSV() {
-        this.systemadministratorService.csvEinlesen();
-    }*/
-
     @PostMapping(path = "/loadcsvf")
     public ResponseEntity<String> loadCSVF(@RequestParam("csv") MultipartFile multipartFile) {
         if(this.systemadministratorService.istCSVFormat(multipartFile)) {
