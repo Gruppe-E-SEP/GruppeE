@@ -11,8 +11,10 @@ public interface SystemadministratorRepository extends JpaRepository<Systemadmin
     @Query("SELECT sa.email FROM Systemadministrator sa where sa.email= :email")
     String findByEmail(@Param("email") String email);
 
-    @Query("SELECT sa FROM Systemadministrator sa where sa.vorname= : vorname")
+    @Query("SELECT sa FROM Systemadministrator sa where sa.vorname= :vorname")
     List<Systemadministrator> findByName(@Param("vorname") String vorname);
+
+
 
 /*    SELECT  l.name, t.tag, m1.name, s.score, m2.name
     FROM SPIEL s

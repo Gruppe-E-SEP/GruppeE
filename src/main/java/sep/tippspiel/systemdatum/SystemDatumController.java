@@ -18,7 +18,7 @@ public class SystemDatumController {
 
 
     @PostMapping(path = "/setdate", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> setDate(@RequestParam("date")@DateTimeFormat(pattern = "dd.MM.yyyy") Date date) {
+    public ResponseEntity<String> setDate(@RequestParam("date")@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         if(systemDatumService.setDate(date)) {
             return new ResponseEntity<>("Datum wurde aktualisiert", HttpStatus.OK);
         } else {

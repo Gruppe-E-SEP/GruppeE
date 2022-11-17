@@ -27,14 +27,14 @@ public class UserController {
             if(this.userService.findByEmail(user.getEmail())!=null) {
                 return new ResponseEntity<>("User mit diesem E-Mail-Adresse ist bereits registriert", HttpStatus.OK);
             } else {
-                if(this.userService.createUser(user.getVorname(), user.getNachname(), user.getEmail(), user.getPasswort())) {
+                if(this.userService.createUser(user.getVorname(), user.getNachname(),user.getDate(),user.getEmail(), user.getPasswort())) {
                     return new ResponseEntity<>("User wurde erstellt:", HttpStatus.OK);
                 } else {
                     return new ResponseEntity<>("User konnte nicht erstellt werden", HttpStatus.BAD_REQUEST);
                 }
             }
         } else {
-            return new ResponseEntity<>("Email ist ungültig:", HttpStatus.OK);
+            return new ResponseEntity<>("Email ist ungültig:", HttpStatus.BAD_REQUEST);
         }
 
 

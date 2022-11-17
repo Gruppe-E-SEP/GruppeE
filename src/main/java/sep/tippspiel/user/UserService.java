@@ -10,6 +10,8 @@ import sep.tippspiel.spiel.SpielRepository;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,13 +23,13 @@ public class UserService {
     private SpielRepository spielRepository;
 
 
-    public boolean createUser(String vorname, String nachname, String email,  String passwort){
+    public boolean createUser(String vorname, String nachname, Date date, String email, String passwort){
 
         try {
             String sha256hex = Hashing.sha256()
                     .hashString(passwort, StandardCharsets.UTF_8)
                     .toString();
-            Users user = new Users(vorname, nachname, email, sha256hex);
+            Users user = new Users(vorname, nachname, date, email, sha256hex);
             userRepository.save(user);
             return true;
         } catch (Exception e) {
