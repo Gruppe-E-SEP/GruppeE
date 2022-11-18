@@ -1,16 +1,13 @@
 package sep.tippspiel.systemadministrator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sep.tippspiel.spiel.SpielService;
-import sep.tippspiel.systemdatum.SystemDatumRepository;
 import sep.tippspiel.systemdatum.SystemDatumService;
-import sep.tippspiel.user.Users;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,7 +16,6 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
-import static sep.tippspiel.user.UserService.isValidEmailAddress;
 
 @RestController
 @RequestMapping(value = "/administrator")
@@ -100,8 +96,8 @@ public class SystemadministratorController {
         }
     }
 
-    //, produces = "application/json", consumes = "application/json"
-    @PutMapping(path = "/setspieldate")
+    //
+    @PutMapping(path = "/setspieldate", produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> setSpielDatum(@RequestParam("id") Long id, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 
         if(this.spielService.setSpielDate(id,date)) {
