@@ -144,7 +144,7 @@ public class SystemadministratorService {
 
     }
 
-    public boolean setSystemDatum(Date date) {
+/*    public boolean setSystemDatum(Date date) {
         try {
             SystemDatum systemDatum = new SystemDatum(date);
             this.systemDatumRepository.deleteAll();
@@ -154,7 +154,7 @@ public class SystemadministratorService {
             e.getMessage();
             return false;
         }
-    }
+    }*/
 
     public boolean istCSVFormat(MultipartFile file) {
         String TYPE = "text/csv";

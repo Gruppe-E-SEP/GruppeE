@@ -16,13 +16,12 @@ public class SystemDatumController {
     @Autowired
     SystemDatumService systemDatumService;
 
-
-    @PostMapping(path = "/setdate", produces = "application/json", consumes = "application/json")
+/*    @PostMapping(path = "/setdate", produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> setDate(@RequestParam("date")@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         if(systemDatumService.setDate(date)) {
             return new ResponseEntity<>("Datum wurde aktualisiert", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Datum konnte nicht aktualisiert werden", HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 }

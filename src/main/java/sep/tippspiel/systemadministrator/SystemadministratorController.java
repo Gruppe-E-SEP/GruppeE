@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sep.tippspiel.spiel.SpielService;
 import sep.tippspiel.systemdatum.SystemDatumRepository;
 import sep.tippspiel.systemdatum.SystemDatumService;
 import sep.tippspiel.user.Users;
@@ -29,6 +30,8 @@ public class SystemadministratorController {
     SystemadministratorService systemadministratorService;
     @Autowired
     SystemDatumService systemDatumService;
+    @Autowired
+    SpielService spielService;
 
     @PostMapping(path = "/createSA",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Systemadministrator sa) {
@@ -78,13 +81,33 @@ public class SystemadministratorController {
         }
     }
 
-    @PostMapping(path = "/setSystemDatum", produces = "application/json", consumes = "application/json")
+/*    @PostMapping(path = "/setSystemDatum", produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> setSystemDatum(@RequestParam Date date) {
 
         if(this.systemadministratorService.setSystemDatum(date)){
             return new ResponseEntity<String>("Datum wurde aktualisiert", HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("Datum konnte nicht aktualisiert werden", HttpStatus.BAD_REQUEST);
+        }
+    }*/
+
+    @PostMapping(path = "/setSystemDatum", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<String> setDate(@RequestParam("date")@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        if(systemDatumService.setDate(date)) {
+            return new ResponseEntity<>("Datum wurde aktualisiert", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Datum konnte nicht aktualisiert werden", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //, produces = "application/json", consumes = "application/json"
+    @PutMapping(path = "/setspieldate")
+    public ResponseEntity<String> setSpielDatum(@RequestParam("id") Long id, @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+
+        if(this.spielService.setSpielDate(id,date)) {
+            return new ResponseEntity<>("Spieldatum wurde aktualisiert", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Datum konnte nicht aktualisiert werden",  HttpStatus.BAD_REQUEST);
         }
     }
 
