@@ -56,7 +56,6 @@ public class LigaController {
                 return new ResponseEntity<>("Image konnte nicht gespeichert werden", HttpStatus.BAD_REQUEST);
             }
 
-
         }
         return new ResponseEntity<>("Es darf nur JPEG Format verwendet werden", HttpStatus.BAD_REQUEST);
     }

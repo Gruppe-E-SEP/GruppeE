@@ -39,7 +39,6 @@ public class Users implements Serializable {
     @Column(name = "email")
     private String email;
     @NotNull
-/*  @NotEmpty(message = "Date darf nicht leer sein")*/
     @Column(name = "date")
     private Date date;
     @NotNull

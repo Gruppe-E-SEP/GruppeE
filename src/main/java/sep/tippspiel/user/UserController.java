@@ -4,9 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sep.tippspiel.liga.LigaService;
 import sep.tippspiel.spiel.Spiel;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import static sep.tippspiel.user.UserService.isValidEmailAddress;
@@ -18,6 +24,11 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    LigaService ligaService;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @PostMapping(path = "/create",  produces = "application/json", consumes = "application/json")
@@ -56,7 +67,29 @@ public class UserController {
     public ResponseEntity<List<Spiel>> getAllSpiele() {
         List<Spiel> allspiele = this.userService.allspiele();
         return new ResponseEntity<>(allspiele, HttpStatus.OK);
-
-
 }
+
+    @PutMapping(path = "/setuserimage")
+    public ResponseEntity<String> setUserImage(@RequestParam String email, @RequestParam("image")MultipartFile multipartFile) {
+
+        if(this.ligaService.istImageFormat(multipartFile)) {
+            Long id = this.userRepository.findUserIdByEmail(email);
+            String filename = "src/main/resources/userImage"+id.toString()+".jpeg";
+
+            if(this.userService.setUserImage(email,filename)) {
+                File file = new File(filename);
+
+                try (OutputStream os = new FileOutputStream(file)) {
+                    os.write(multipartFile.getBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                return new ResponseEntity<>("UserImage wurde gespeichert", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Image konnte nicht gespeichert werden", HttpStatus.BAD_REQUEST);
+            }
+
+        }
+        return new ResponseEntity<>("Es darf nur JPEG Format verwendet werden", HttpStatus.BAD_REQUEST);
+    }
 }
