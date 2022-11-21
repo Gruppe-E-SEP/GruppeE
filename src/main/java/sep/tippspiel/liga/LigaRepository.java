@@ -11,4 +11,8 @@ public interface LigaRepository extends JpaRepository<Liga,Long>{
     @Query("Select l.id From Liga l where l.name = :name")
     Long findByName(@Param("name") String name);
 
+    boolean existsByName(String name);
+
+
+
 }

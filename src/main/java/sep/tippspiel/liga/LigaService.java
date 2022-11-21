@@ -16,13 +16,19 @@ public class LigaService {
     public boolean createLiga(String name) {
         Liga liga = new Liga();
         liga.setName(name);
-        try {
-            this.ligaRepository.save(liga);
-            return true;
-        } catch (Exception e) {
-            System.err.println("Liga konnte nicht geschpeichert werden: " + e.getStackTrace());
+        if(!this.ligaRepository.existsByName(name)) {
+            try {
+                this.ligaRepository.save(liga);
+                return true;
+            } catch (Exception e) {
+                System.err.println("Liga konnte nicht geschpeichert werden: " + e.getStackTrace());
+                return false;
+            }
+        } else {
+            System.out.println("Liga mit der Name " + name + " ist bereits angelegt");
             return false;
         }
+
     }
 
     public boolean setLigaName(String oldName, String newName) {
