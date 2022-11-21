@@ -13,6 +13,18 @@ public class LigaService {
     @Autowired
     LigaRepository ligaRepository;
 
+    public boolean createLiga(String name) {
+        Liga liga = new Liga();
+        liga.setName(name);
+        try {
+            this.ligaRepository.save(liga);
+            return true;
+        } catch (Exception e) {
+            System.err.println("Liga konnte nicht geschpeichert werden: " + e.getStackTrace());
+            return false;
+        }
+    }
+
     public boolean setLigaName(String oldName, String newName) {
         Long id = this.ligaRepository.findByName(oldName);
         try {

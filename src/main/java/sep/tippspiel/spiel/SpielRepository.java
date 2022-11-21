@@ -13,6 +13,7 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
     Spiel findSpielById(@Param("id")Long id);
 
 
+
 /*    @Query("SELECT u.email FROM Users u where  u.email= :email")
     String findByEmail(@Param("email") String email);*/
 

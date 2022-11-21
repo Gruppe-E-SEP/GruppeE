@@ -15,7 +15,6 @@ public interface SystemadministratorRepository extends JpaRepository<Systemadmin
     List<Systemadministrator> findByName(@Param("vorname") String vorname);
 
 
-
 /*    SELECT  l.name, t.tag, m1.name, s.score, m2.name
     FROM SPIEL s
     JOIN MANNSCHAFT m1 ON s.MANNSCHAFT_ID=m1.ID

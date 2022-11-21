@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sep.tippspiel.liga.LigaService;
 import sep.tippspiel.spiel.SpielService;
 import sep.tippspiel.systemdatum.SystemDatumService;
 
@@ -28,6 +29,9 @@ public class SystemadministratorController {
     SystemDatumService systemDatumService;
     @Autowired
     SpielService spielService;
+
+    @Autowired
+    LigaService ligaService;
 
     @PostMapping(path = "/createSA",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Systemadministrator sa) {
@@ -104,6 +108,16 @@ public class SystemadministratorController {
             return new ResponseEntity<>("Spieldatum wurde aktualisiert", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Datum konnte nicht aktualisiert werden",  HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PostMapping(path = "/createliga", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<String> createLiga(@RequestParam("name") String name) {
+        if(this.ligaService.createLiga(name)) {
+            return new ResponseEntity<>("Liga mit name " + name + " wurde erstelt", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Liga konnte nicht erstellt werden", HttpStatus.BAD_REQUEST);
         }
     }
 
