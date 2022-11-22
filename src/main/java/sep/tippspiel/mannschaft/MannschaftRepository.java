@@ -13,4 +13,5 @@ public interface MannschaftRepository extends JpaRepository<Mannschaft, Long> {
     @Query("SELECT t.id FROM Mannschaft t where t.name= :name")
     Long findByName(@Param("name") String name);
 
+
 }

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -121,5 +122,14 @@ public class SystemadministratorController {
         }
     }
 
-
+    @PostMapping(path = "/setspiel")
+    public ResponseEntity<String> setSpiel(@RequestParam("name")String name,@RequestParam("spielplanId")long spielplanId,@RequestParam("tag") int tag,
+                                           @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd")Date date,@RequestParam("score") String score,@RequestParam("mannschaft1") String mannschaft1,
+                                           @RequestParam("mannschaft2")String mannschaft2) throws ParseException {
+        if(this.systemadministratorService.setSpiel(name,spielplanId,tag,date,score,mannschaft1,mannschaft2)) {
+            return new ResponseEntity<>("Spiel wurde erfolgreich angelegt", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Spiel konnte nicht angelegt werden", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

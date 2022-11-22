@@ -165,4 +165,67 @@ public class SystemadministratorService {
         return true;
     }
 
+    public boolean setSpiel(String name,long spielplanId, int tag, Date date, String score, String mannschaft1,String mannschaft2 ) throws ParseException {
+
+        Spielplan spielplan;
+        if(!this.spielplanRepository.existsById(spielplanId)) {
+            spielplan = new Spielplan();
+            this.spielplanRepository.save(spielplan);
+        } else {
+            spielplan = this.spielplanRepository.getReferenceById(spielplanId);
+        }
+
+        Liga liga;
+        if(!ligaRepository.existsByName(name)) {
+            liga = new Liga();
+            liga.setName(name);
+            this.ligaRepository.save(liga);
+
+        } else {
+            liga = this.ligaRepository.getReferenceById(ligaRepository.findByName(name));
+        }
+
+        liga.setSpielplan(this.spielplanRepository.getReferenceById(spielplan.getId()));
+
+        Mannschaft heimmannschaft = new Mannschaft();
+        Long heimmannschaftId;
+        if(!this.mannschaftRepository.isMannschaftPresent(mannschaft1)) {
+            heimmannschaft.setName(mannschaft1);
+            this.mannschaftRepository.save(heimmannschaft);
+            heimmannschaftId = this.mannschaftRepository.findByName(mannschaft1);
+        } else {
+            heimmannschaftId = this.mannschaftRepository.findByName(mannschaft1);
+        }
+
+        Mannschaft auswaertsmannschaft = new Mannschaft();
+        Long auswaertsmannschaftId;
+        if(!this.mannschaftRepository.isMannschaftPresent(mannschaft2)) {
+            auswaertsmannschaft.setName(mannschaft2);
+            this.mannschaftRepository.save(auswaertsmannschaft);
+            auswaertsmannschaftId = this.mannschaftRepository.findByName(mannschaft2);
+        } else {
+            auswaertsmannschaftId = this.mannschaftRepository.findByName(mannschaft2);
+
+        }
+
+        //ToDo
+        Spieltag spieltag = new Spieltag();
+        Long spielTagId;
+
+        if(!this.spieltagRepository.isSpieltagPresent(tag)) {
+            spieltag.setTag(tag);
+            this.spieltagRepository.save(spieltag);
+            spielTagId = this.spieltagRepository.getByTag(tag);
+        } else {
+            spielTagId = this.spieltagRepository.getByTag(tag);
+        }
+
+        Spiel spiel;
+        Long spielId;
+
+        this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(heimmannschaftId),this.mannschaftRepository.getReferenceById(auswaertsmannschaftId),date.toString(),score,this.spieltagRepository.getReferenceById(spielTagId)));
+
+        return true;
+    }
+
 }

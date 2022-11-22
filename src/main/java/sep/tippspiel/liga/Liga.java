@@ -19,6 +19,14 @@ public class Liga {
     @Column(name = "ligaImage")
     private String ligaImage;
 
+    public Spielplan getSpielplan() {
+        return spielplan;
+    }
+
+    public void setSpielplan(Spielplan spielplan) {
+        this.spielplan = spielplan;
+    }
+
     @OneToOne
     @JoinColumn(name = "spielplan_id")
     private Spielplan spielplan;
