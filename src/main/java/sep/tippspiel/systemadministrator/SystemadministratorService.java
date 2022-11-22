@@ -208,7 +208,6 @@ public class SystemadministratorService {
 
         }
 
-        //ToDo
         Spieltag spieltag = new Spieltag();
         Long spielTagId;
 
@@ -219,10 +218,7 @@ public class SystemadministratorService {
         } else {
             spielTagId = this.spieltagRepository.getByTag(tag);
         }
-
-        Spiel spiel;
-        Long spielId;
-
+        
         this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(heimmannschaftId),this.mannschaftRepository.getReferenceById(auswaertsmannschaftId),date.toString(),score,this.spieltagRepository.getReferenceById(spielTagId)));
 
         return true;
