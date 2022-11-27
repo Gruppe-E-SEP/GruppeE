@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sep.tippspiel.liga.LigaService;
+import sep.tippspiel.mannschaft.Mannschaft;
+import sep.tippspiel.spiel.Spiel;
 import sep.tippspiel.spiel.SpielService;
 import sep.tippspiel.systemdatum.SystemDatumService;
 
@@ -15,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -132,4 +135,23 @@ public class SystemadministratorController {
             return new ResponseEntity<>("Spiel konnte nicht angelegt werden", HttpStatus.BAD_REQUEST);
         }
     }
+
+/*    @PutMapping(path = "/findheimmannschaftscore", produces = "application/json")
+    public ResponseEntity<List<String>> findHeimMannschaftScore(@RequestParam String name) {
+        List<String> scoreList = this.spielService.findHeimMannschaftScore(name);;
+        return new ResponseEntity<List<String>>(scoreList, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/findgastmannschaftscore", produces = "application/json")
+    public ResponseEntity<List<String>> findGastmannschaftScore(@RequestParam String name) {
+        List<String> scoreList = this.spielService.findGastmannschaftScore(name);;
+        return new ResponseEntity<List<String>>(scoreList, HttpStatus.OK);
+    }*/
+
+    @PutMapping(path = "/gibtipphilfe", produces = "application/json")
+    public ResponseEntity<String> gibMannschaftVorhersage(@RequestParam String name) {
+        String vorhersage = this.spielService.calcVorhersage(name);
+        return new ResponseEntity<String>(vorhersage, HttpStatus.OK);
+    }
+
 }

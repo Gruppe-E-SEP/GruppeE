@@ -4,8 +4,10 @@ import org.hibernate.sql.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import sep.tippspiel.mannschaft.Mannschaft;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface SpielRepository extends JpaRepository<Spiel, Long> {
 
@@ -13,9 +15,12 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
     Spiel findSpielById(@Param("id")Long id);
 
 
+    @Query("SELECT s.score FROM Spiel s join Mannschaft m1 on s.mannschaft.id=m1.id and m1.name= :name")
+    List<String> findHeimMannschaftScore(@Param(value = "name") String name);
 
-/*    @Query("SELECT u.email FROM Users u where  u.email= :email")
-    String findByEmail(@Param("email") String email);*/
+    @Query("SELECT s.score FROM Spiel s join Mannschaft m2 on s.mannschaft2.id=m2.id and m2.name= :name")
+    List<String> findGastmannschaftScore(@Param(value = "name") String name);
+
 
 
 /*    @Query("SELECT  t.tag, m1.name, s.score, m2.name FROM Spiel s JOIN Mannschaft m1 ON s.Mannschaft=m1.ID " +

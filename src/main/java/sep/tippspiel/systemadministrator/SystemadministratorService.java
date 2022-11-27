@@ -209,7 +209,9 @@ public class SystemadministratorService {
         }
 
         Spieltag spieltag = new Spieltag();
+        spieltag.setSpielplan(this.spielplanRepository.getReferenceById(spielplanId));
         Long spielTagId;
+        System.out.println("String Date: " + date.toString());
 
         if(!this.spieltagRepository.isSpieltagPresent(tag)) {
             spieltag.setTag(tag);
@@ -218,7 +220,7 @@ public class SystemadministratorService {
         } else {
             spielTagId = this.spieltagRepository.getByTag(tag);
         }
-        
+
         this.spielRepository.save(new Spiel(this.mannschaftRepository.getReferenceById(heimmannschaftId),this.mannschaftRepository.getReferenceById(auswaertsmannschaftId),date.toString(),score,this.spieltagRepository.getReferenceById(spielTagId)));
 
         return true;

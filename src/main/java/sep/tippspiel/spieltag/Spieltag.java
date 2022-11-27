@@ -54,6 +54,14 @@ public class Spieltag {
 
     public Spieltag() {};
 
+    public Spielplan getSpielplan() {
+        return spielplan;
+    }
+
+    public void setSpielplan(Spielplan spielplan) {
+        this.spielplan = spielplan;
+    }
+
     public Spieltag(int tag, Spielplan spielplan) {
         this.tag = tag;
         this.spielplan = spielplan;
