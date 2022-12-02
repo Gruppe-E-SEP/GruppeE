@@ -2,6 +2,7 @@ package sep.tippspiel.liga;
 
 import org.checkerframework.checker.units.qual.C;
 import sep.tippspiel.spielplan.Spielplan;
+import sep.tippspiel.tipprunde.Tipprunde;
 
 import javax.persistence.*;
 
@@ -30,6 +31,9 @@ public class Liga {
     @OneToOne
     @JoinColumn(name = "spielplan_id")
     private Spielplan spielplan;
+
+    @OneToOne(mappedBy = "liga")
+    private Tipprunde tipprunde;
 
     public Liga(){};
 

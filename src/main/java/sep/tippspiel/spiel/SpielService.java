@@ -95,7 +95,7 @@ public class SpielService {
             prognose = "hochwahrscheinlich gewinnt";
         }
         String vorhersages = new DecimalFormat("0.00").format(vorhersage);
-        String ergebnis = "Tipphilfe fuer Team: " + name + " basiert sich auf " + counterHeim + " Heimspiel(e) und " + counterGast + " Gastspiel(e). Das Resultat der Berechung ist: " + vorhersages +
+        String ergebnis = "Tipphilfe fuer Team " + name + " basiert sich auf " + counterHeim + " Heimspiel(e) und " + counterGast + " Gastspiel(e). Das Resultat der Berechung ist: " + vorhersages +
                 ". Anhand der Berehnungen laesst sich grob abschaetzen, dass Team " + name + " " + prognose;
         System.out.println(ergebnis);
         return ergebnis;
