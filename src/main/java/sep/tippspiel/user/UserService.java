@@ -8,6 +8,7 @@ import sep.tippspiel.liga.LigaService;
 import sep.tippspiel.spiel.Spiel;
 import sep.tippspiel.spiel.SpielRepository;
 
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +36,8 @@ public class UserService {
             userRepository.save(user);
             return true;
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
+            //System.err.println(e.getMessage());
             return false;
         }
 
@@ -52,6 +54,8 @@ public class UserService {
     }
 
     public static boolean isValidEmailAddress(String email) {
+
+        return true; /*
         boolean result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email);
@@ -60,6 +64,7 @@ public class UserService {
             result = false;
         }
         return result;
+        */
     }
 
     public List<Spiel> allspiele() {return spielRepository.findAll();}
@@ -77,6 +82,49 @@ public class UserService {
             return false;
         }
     }
+
+
+
+    public boolean loginUser(String email, String passwort) {
+        List<Users> userList = userRepository.findAll();
+        if(this.userRepository.existsById(this.userRepository.findUserIdByEmail(email))) {
+            Long id = this.userRepository.findUserIdByEmail(email);
+
+            Users user = this.userRepository.getReferenceById(id);
+
+
+            for (Users other : userList) {
+
+                if (other.getEmail().equals(user.getEmail())) {
+                    String sha256hex = Hashing.sha256()
+                            .hashString(passwort, StandardCharsets.UTF_8)
+                            .toString();
+                    if (user.getPasswort().equals(sha256hex)) {
+                        user.setLoggedIn(true);
+                        userRepository.save(user);
+                        return true;
+                    }
+
+                }
+            }
+            }
+
+        return false;
+    }
+
+
+    public boolean logUserOut(String email) {
+        Long id = this.userRepository.findUserIdByEmail(email);
+        Users user = this.userRepository.getReferenceById(id);
+        if(user.isLoggedIn()){
+            user.setLoggedIn(false);
+            return true;
+        }
+
+
+        return false;
+    }
+
 
 
 }

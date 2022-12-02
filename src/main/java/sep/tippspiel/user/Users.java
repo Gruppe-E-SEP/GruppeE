@@ -26,6 +26,10 @@ public class Users implements Serializable {
         this.id = id;
     }
 
+
+
+    private boolean loggedIn;
+
     @NotNull
     @NotEmpty(message = "Vorname darf nicht leer sein")
     @Column(name = "vorname")
@@ -48,6 +52,13 @@ public class Users implements Serializable {
 
     @Column(name = "image")
     private String image;
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
 
     public String getVorname() {
         return vorname;

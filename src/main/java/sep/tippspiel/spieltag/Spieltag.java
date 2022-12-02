@@ -22,13 +22,6 @@ public class Spieltag {
     @Column(name = "tag")
     private int tag;
 
-    public int getTag() {
-        return tag;
-    }
-
-    public void setTag(int tag) {
-        this.tag = tag;
-    }
 /*    @ManyToOne
     @JoinColumn(name = "spiel_id")
     private Spiel spiel;*/
@@ -53,14 +46,6 @@ public class Spieltag {
     }*/
 
     public Spieltag() {};
-
-    public Spielplan getSpielplan() {
-        return spielplan;
-    }
-
-    public void setSpielplan(Spielplan spielplan) {
-        this.spielplan = spielplan;
-    }
 
     public Spieltag(int tag, Spielplan spielplan) {
         this.tag = tag;

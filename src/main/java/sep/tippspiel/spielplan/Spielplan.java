@@ -31,22 +31,6 @@ public class Spielplan {
 
     public Spielplan() {};
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Liga getLiga() {
-        return liga;
-    }
-
-    public void setLiga(Liga liga) {
-        this.liga = liga;
-    }
-
     @OneToOne(mappedBy = "spielplan")
     private Liga liga;
 

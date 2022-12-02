@@ -6,9 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sep.tippspiel.liga.LigaService;
-import sep.tippspiel.mannschaft.Mannschaft;
-import sep.tippspiel.spiel.Spiel;
 import sep.tippspiel.spiel.SpielService;
 import sep.tippspiel.systemdatum.SystemDatumService;
 
@@ -16,8 +13,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,9 +28,6 @@ public class SystemadministratorController {
     SystemDatumService systemDatumService;
     @Autowired
     SpielService spielService;
-
-    @Autowired
-    LigaService ligaService;
 
     @PostMapping(path = "/createSA",  produces = "application/json", consumes = "application/json")
     public ResponseEntity<String> createUser(@RequestBody Systemadministrator sa) {
@@ -115,43 +107,5 @@ public class SystemadministratorController {
         }
     }
 
-
-    @PostMapping(path = "/createliga", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<String> createLiga(@RequestParam("name") String name) {
-        if(this.ligaService.createLiga(name)) {
-            return new ResponseEntity<>("Liga mit name " + name + " wurde erstelt", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Liga konnte nicht erstellt werden", HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @PostMapping(path = "/setspiel")
-    public ResponseEntity<String> setSpiel(@RequestParam("name")String name,@RequestParam("spielplanId")long spielplanId,@RequestParam("tag") int tag,
-                                           @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd")Date date,@RequestParam("score") String score,@RequestParam("mannschaft1") String mannschaft1,
-                                           @RequestParam("mannschaft2")String mannschaft2) throws ParseException {
-        if(this.systemadministratorService.setSpiel(name,spielplanId,tag,date,score,mannschaft1,mannschaft2)) {
-            return new ResponseEntity<>("Spiel wurde erfolgreich angelegt", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Spiel konnte nicht angelegt werden", HttpStatus.BAD_REQUEST);
-        }
-    }
-
-/*    @PutMapping(path = "/findheimmannschaftscore", produces = "application/json")
-    public ResponseEntity<List<String>> findHeimMannschaftScore(@RequestParam String name) {
-        List<String> scoreList = this.spielService.findHeimMannschaftScore(name);;
-        return new ResponseEntity<List<String>>(scoreList, HttpStatus.OK);
-    }
-
-    @PutMapping(path = "/findgastmannschaftscore", produces = "application/json")
-    public ResponseEntity<List<String>> findGastmannschaftScore(@RequestParam String name) {
-        List<String> scoreList = this.spielService.findGastmannschaftScore(name);;
-        return new ResponseEntity<List<String>>(scoreList, HttpStatus.OK);
-    }*/
-
-    @PutMapping(path = "/gibtipphilfe", produces = "application/json")
-    public ResponseEntity<String> gibMannschaftVorhersage(@RequestParam String name) {
-        String vorhersage = this.spielService.calcVorhersage(name);
-        return new ResponseEntity<String>(vorhersage, HttpStatus.OK);
-    }
 
 }
