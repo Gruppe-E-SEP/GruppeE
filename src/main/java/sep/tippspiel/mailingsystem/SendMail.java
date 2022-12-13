@@ -14,22 +14,23 @@ public class SendMail {
     public static void main(String[] args){
         String to = "kevinprinz.1@web.de";
 
-        String from = "kevinprinz.1@web.de";
+        String from = "tippspiel@gmail.com";
 
-        String host = "smtp.mailtrap.io";
+        String host = "smtp.gmail.com";
 
         Properties properties = System.getProperties();
 
         properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587");
-       // properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
         properties.put("mail.smtp.auth", "true");
 
         Session session = Session.getInstance(properties,new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication(){
-                return new PasswordAuthentication("a094ccae2cfdb3", "82a851fcf4aa33");
+                return new PasswordAuthentication("tippspiel", "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");
             }
         });
+        session.setDebug(true);
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
