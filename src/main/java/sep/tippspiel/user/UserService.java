@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import sep.tippspiel.mailingsystem.SendMail;
 
 @Service
 public class UserService {
@@ -22,6 +23,9 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private SpielRepository spielRepository;
+
+    @Autowired
+    private SendMail sendMail;
 
 
 
@@ -40,6 +44,7 @@ public class UserService {
         }
 
     }
+
 
     public List<Users> all() {return userRepository.findAll();}
 

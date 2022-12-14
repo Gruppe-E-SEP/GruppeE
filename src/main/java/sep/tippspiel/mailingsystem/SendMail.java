@@ -35,7 +35,7 @@ import java.util.Set;
 public class SendMail {
     private final Gmail service;
     @Autowired Users users;
-    private static final String TEST_EMAIL = "kevinprinz.1@web.de";
+    private final String TEST_EMAIL = users.getEmail();
     public SendMail() throws Exception{
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -96,8 +96,8 @@ public class SendMail {
             }
         }
     }
-    public static void main(String[] args) throws Exception {
-        new SendMail().sendMail("Code!", "1234");
+    public void main(String[] args) throws Exception {
+        new SendMail().sendMail("Dein 2 Faktor Code!", "1234");
     }
 }
 
